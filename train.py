@@ -76,8 +76,12 @@ if __name__ == '__main__':
                 inputs = inputs.to(device)
                 labels = labels.to(device)
 
-                preds = model(inputs)
-
+                #preds = model(inputs)
+                preds = model(labels)
+                print(len(data))
+                print(inputs.shape)
+                print(preds.shape)
+                print(labels.shape)
                 loss = criterion(preds, labels)
 
                 epoch_losses.update(loss.item(), len(inputs))
