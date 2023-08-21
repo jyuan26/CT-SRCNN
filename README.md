@@ -42,7 +42,24 @@ python train.py --train-file "BLAH_BLAH/91-image_x3.h5" \
                 --batch-size 16 \
                 --num-epochs 400 \
                 --num-workers 8 \
-                --seed 123                
+                --seed 123       
+
+--outputs-dir "BLAH_BLAH/outputs" --scale 3 
+--lr 1e-4 
+--batch-size 16 
+--num-epochs 400 
+--num-workers 8 
+--seed 123                    
+
+python train.py --train-file "BLAH_BLAH/jason/PRISMh5.h5" \
+                --eval-file "BLAH_BLAH/jason/PRISMval.h5" \
+                --outputs-dir "BLAH_BLAH/jason/outputs" \
+                --scale 3 \
+                --lr 1e-4 \
+                --batch-size 16 \
+                --num-epochs 400 \
+                --num-workers 8 \
+                --seed 123                             
 ```
 
 ## Test

@@ -9,6 +9,7 @@ import torch.backends.cudnn as cudnn
 from torch.utils.data.dataloader import DataLoader
 from tqdm import tqdm
 
+import DIV2Kprism
 from models import SRCNN
 from datasets import TrainDataset, EvalDataset
 from utils import AverageMeter, calc_psnr
@@ -45,11 +46,13 @@ if __name__ == '__main__':
         {'params': model.conv3.parameters(), 'lr': args.lr * 0.1}
     ], lr=args.lr)
 
-    train_dataset = TrainDataset(args.train_file)
+    #train_dataset = TrainDataset(args.train_file)
+    train_dataset = DIV2Kprism.CNNdiv2k()
+
     train_dataloader = DataLoader(dataset=train_dataset,
                                   batch_size=args.batch_size,
                                   shuffle=True,
-                                  num_workers=args.num_workers,
+                                  num_workers=0, #args.num_workers,
                                   pin_memory=True,
                                   drop_last=True)
     eval_dataset = EvalDataset(args.eval_file)
@@ -67,6 +70,7 @@ if __name__ == '__main__':
             t.set_description('epoch: {}/{}'.format(epoch, args.num_epochs - 1))
 
             for data in train_dataloader:
+            #for data in enumerate(train_dataloader, 1):
                 inputs, labels = data
 
                 inputs = inputs.to(device)
