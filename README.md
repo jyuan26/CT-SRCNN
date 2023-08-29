@@ -78,6 +78,10 @@ The results are stored in the same path as the query image.
 python test.py --weights-file "BLAH_BLAH/srcnn_x3.pth" \
                --image-file "data/butterfly_GT.bmp" \
                --scale 3
+               
+python test.py --weights-file "BLAH_BLAH/srcnn_x4.pth" \
+               --image-file "data/SRCT/20200101.png" \
+               --scale 4               
 ```
 
 ## Results

@@ -43,8 +43,10 @@ class CNNdiv2k(data.Dataset):
 
     def _set_filesystem(self): #, dir_data):
         #self.root = dir_data
-        self.dir_hr = '/home/fried/git/jason/esrt2/npy files/train_npy'
-        self.dir_lr = '/home/fried/git/jason/esrt2/npy files/trainx4_npy'
+        #self.dir_hr = '/home/fried/git/jason/esrt3/npy files/train_npy'
+        #self.dir_lr = '/home/fried/git/jason/esrt3/npy files/trainx4_npy'
+        self.dir_hr = '/home/fried/git/hyuan/SRCT/npy files/train_npy'
+        self.dir_lr = '/home/fried/git/hyuan/SRCT/npy files/trainx4_npy'
 
     def __getitem__(self, idx):
         lr, hr = self._load_file(idx)
