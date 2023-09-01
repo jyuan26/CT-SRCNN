@@ -10,6 +10,7 @@ from torch.utils.data.dataloader import DataLoader
 from tqdm import tqdm
 
 import DIV2Kprism
+import prismval
 from models import SRCNN
 from datasets import TrainDataset, EvalDataset
 from utils import AverageMeter, calc_psnr
@@ -47,7 +48,7 @@ if __name__ == '__main__':
     ], lr=args.lr)
 
     #train_dataset = TrainDataset(args.train_file)
-    train_dataset = DIV2Kprism.CNNdiv2k()
+    train_dataset = DIV2Kprism.CNNdiv2k(args.train_file, ".npy")
 
     train_dataloader = DataLoader(dataset=train_dataset,
                                   batch_size=args.batch_size,
@@ -55,7 +56,9 @@ if __name__ == '__main__':
                                   num_workers=0, #args.num_workers,
                                   pin_memory=True,
                                   drop_last=True)
-    eval_dataset = EvalDataset(args.eval_file)
+    #eval_dataset = EvalDataset(args.eval_file)
+    #eval_dataset = DIV2Kprism.CNNdiv2k(args.eval_file, ".png")
+    eval_dataset = prismval.DatasetFromFolderVal(args.eval_file, 4)
     eval_dataloader = DataLoader(dataset=eval_dataset, batch_size=1)
 
     best_weights = copy.deepcopy(model.state_dict())
@@ -78,10 +81,10 @@ if __name__ == '__main__':
 
                 #preds = model(inputs)
                 preds = model(labels)
-                print(len(data))
-                print(inputs.shape)
-                print(preds.shape)
-                print(labels.shape)
+                #print(len(data))
+                #print(inputs.shape)
+                #print(preds.shape)
+                #print(labels.shape)
                 loss = criterion(preds, labels)
 
                 epoch_losses.update(loss.item(), len(inputs))
