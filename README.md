@@ -108,6 +108,12 @@ PSNR was calculated on the Y channel.
 | PSNR | 3 | 32.75 | 33.29 |
 | PSNR | 4 | 30.49 | 30.25 |
 
+### usage :
+
+ln -s SRCT /home/fried/git/hyuan/SRCT/
+/home/fried/miniconda3/envs/srcnn/bin/python train.py --train-file SRCT/project_data/train_npy_files --eval-file SRCT/project_data/train_npy_files/val --outputs-dir BLAH_BLAH/jason/outputs --scale 4 --lr 1e-4 --batch-size 16 --num-epochs 400 --num-workers 8 --seed 123 
+/home/fried/miniconda3/envs/srcnn/bin/python test.py --weights-file BLAH_BLAH/outputs/x4/best.pth --image-file SRCT/project_data/original --scale 4 
+
 <table>
     <tr>
         <td><center>Original</center></td>
