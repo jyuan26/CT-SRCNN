@@ -51,15 +51,25 @@ python train.py --train-file "BLAH_BLAH/91-image_x3.h5" \
 --num-workers 8 
 --seed 123                    
 
-python train.py --train-file "BLAH_BLAH/jason/PRISMh5.h5" \
-                --eval-file "BLAH_BLAH/jason/PRISMval.h5" \
+python train.py --train-file "SRCT/project_data/train_npy_files" \
+                --eval-file "SRCT/project_data/train_npy_files/val" \
                 --outputs-dir "BLAH_BLAH/jason/outputs" \
                 --scale 3 \
                 --lr 1e-4 \
                 --batch-size 16 \
                 --num-epochs 400 \
                 --num-workers 8 \
-                --seed 123                             
+                --seed 123      
+                
+python train.py --train-file "SRCT/project_data/train_npy_files" \
+                --eval-file "BLAH_BLAH/Set5_x4.h5" \
+                --outputs-dir "BLAH_BLAH/jason/outputs" \
+                --scale 3 \
+                --lr 1e-4 \
+                --batch-size 16 \
+                --num-epochs 400 \
+                --num-workers 8 \
+                --seed 123                                          
 ```
 
 ## Test

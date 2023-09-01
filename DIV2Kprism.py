@@ -3,9 +3,13 @@ import os.path
 import cv2
 import numpy as np
 import common
+from PIL import Image
 
 def default_loader(path):
-    return cv2.imread(path, cv2.IMREAD_UNCHANGED)[:, :, [2, 1, 0]]
+    data=cv2.imread(path, cv2.IMREAD_UNCHANGED)
+    return data[:, :, [2, 1, 0]]
+    #data = Image.open(path).convert('RGB')
+    #return data
 
 def npy_loader(path):
     return np.load(path)
@@ -29,24 +33,23 @@ def make_dataset(dir):
     return images
 
 class CNNdiv2k(data.Dataset):
-    def __init__(self):
-        #self.opt = opt
+    def __init__(self, data_dir, ext):
+        self.data_dir = data_dir
         self.scale = 4
         self.n_train = 31
         self.patch_size = 96
         #self.root = self.opt.root
-        self.ext = '.npy' # self.opt.ext   # '.png' or '.npy'(default)
+        self.ext = ext #'.npy' # self.opt.ext   # '.png' or '.npy'(default)
         self.train = True #if self.opt.phase == 'train' else False
         self.repeat = 10#self.opt.test_every // (self.opt.n_train // self.opt.batch_size)
         self._set_filesystem()
         self.images_hr, self.images_lr = self._scan()
 
     def _set_filesystem(self): #, dir_data):
-        #self.root = dir_data
-        #self.dir_hr = '/home/fried/git/jason/esrt3/npy files/train_npy'
-        #self.dir_lr = '/home/fried/git/jason/esrt3/npy files/trainx4_npy'
-        self.dir_hr = '/home/fried/git/hyuan/SRCT/npy files/train_npy'
-        self.dir_lr = '/home/fried/git/hyuan/SRCT/npy files/trainx4_npy'
+        #self.dir_hr = 'SRCT/project_data/train_npy_files/high_resolution'
+        #self.dir_lr = 'SRCT/project_data/train_npy_files/low_resolution'
+        self.dir_hr = self.data_dir + '/high_resolution' #'SRCT/project_data/train_npy_files/high_resolution'
+        self.dir_lr = self.data_dir + '/low_resolution' #'SRCT/project_data/train_npy_files/low_resolution'
 
     def __getitem__(self, idx):
         lr, hr = self._load_file(idx)
@@ -92,7 +95,7 @@ class CNNdiv2k(data.Dataset):
             hr = default_loader(self.images_hr[idx])
         return lr, hr
 
-class div2k(data.Dataset):
+class not_used_div2k(data.Dataset):
     def __init__(self, opt):
         self.opt = opt
         self.scale = self.opt.scale
@@ -105,8 +108,8 @@ class div2k(data.Dataset):
 
     def _set_filesystem(self, dir_data):
         self.root = dir_data
-        self.dir_hr = '/home/fried/git/jason/esrt2/npy files/train_npy'
-        self.dir_lr = '/home/fried/git/jason/esrt2/npy files/trainx4_npy'
+        self.dir_hr = '/home/fried/git/jason/esrt2/train_npy_files/high_resolution'
+        self.dir_lr = '/home/fried/git/jason/esrt2/train_npy_files/low_resolution'
 
     def __getitem__(self, idx):
         lr, hr = self._load_file(idx)
