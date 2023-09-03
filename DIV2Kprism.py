@@ -33,9 +33,9 @@ def make_dataset(dir):
     return images
 
 class CNNdiv2k(data.Dataset):
-    def __init__(self, data_dir, ext):
+    def __init__(self, data_dir, ext, scale):
         self.data_dir = data_dir
-        self.scale = 4
+        self.scale = scale
         self.n_train = 31
         self.patch_size = 96
         #self.root = self.opt.root
@@ -49,7 +49,7 @@ class CNNdiv2k(data.Dataset):
         #self.dir_hr = 'SRCT/project_data/train_npy_files/high_resolution'
         #self.dir_lr = 'SRCT/project_data/train_npy_files/low_resolution'
         self.dir_hr = self.data_dir + '/high_resolution' #'SRCT/project_data/train_npy_files/high_resolution'
-        self.dir_lr = self.data_dir + '/low_resolution' #'SRCT/project_data/train_npy_files/low_resolution'
+        self.dir_lr = self.data_dir + '/low_resolution/X' + str(self.scale) #'SRCT/project_data/train_npy_files/low_resolution'
 
     def __getitem__(self, idx):
         lr, hr = self._load_file(idx)

@@ -33,8 +33,8 @@ if __name__ == '__main__':
 
     model.eval()
 
-    max_test_item = 2000
-    filelist = get_list(args.image_file, ext="png")
+    max_test_item = 20
+    filelist = get_list(args.image_file+"/X"+str(args.scale), ext="png")
     filelist = filelist[:max_test_item]
     psnr_list = np.zeros(len(filelist))
     mse_list = np.zeros(len(filelist))

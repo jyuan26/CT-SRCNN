@@ -48,7 +48,7 @@ if __name__ == '__main__':
     ], lr=args.lr)
 
     #train_dataset = TrainDataset(args.train_file)
-    train_dataset = DIV2Kprism.CNNdiv2k(args.train_file, ".npy")
+    train_dataset = DIV2Kprism.CNNdiv2k(args.train_file, ".npy", args.scale)
 
     train_dataloader = DataLoader(dataset=train_dataset,
                                   batch_size=args.batch_size,
